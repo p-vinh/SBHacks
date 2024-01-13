@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Scanner</title>
+    <link rel="stylesheet" href="../static/scannerStyle.css">
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="../landing-page.html"><img src="../static\NutriBotLogo.png"></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="profile.html">PROFILE</a></li>
+                    <li><a href="login.html">LOG IN</a></li>
+                    <li><a href="createAccount.html">SIGN UP</a></li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <div class="container">
+        <div class="scanner">
+            <div class="text-box">         
+                <h1>Scanner</h1>
+                <p>Scan the barcode of the food you want to track.</p>
+                <button class="scanner__button" id="button" autoplay>Scan</button>
+                <div>
+                    <video id="vid"></video>
+                </div>
+            </div>
+            <div class="scanner__preview"></div>
+            <div class="scanner__result"></div>
+        </div>
+    </div>
+    <script src="../static/scanner.js"></script>
+</html>
