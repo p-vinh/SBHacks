@@ -128,3 +128,15 @@ body {
 .form__link:hover {
     text-decoration: underline;
 }
+
+.back {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    color: #a0a4a8;
+}
+
+.back:hover {
+    color: #0056b3;
+}

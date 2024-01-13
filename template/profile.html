@@ -12,7 +12,8 @@
             <a href="../landing-page.html"><img src="../static\NutriBotLogo.png"></a>
             <div class="nav-links">
                 <ul>
-                    <li><a href="profile.html">PROFILE</a></li>
+                    <li><a href="profile.html" id="profileLink">PROFILE</a></li>
+                    <li><a href="info.html">INFO</a></li>
                     <li><a href="login.html">LOG IN</a></li>
                     <li><a href="createAccount.html">SIGN UP</a></li>
                 </ul>
@@ -22,32 +23,40 @@
     </section>
     
     <div class="main-container">
-        <h1>Welcome ---!</h1>
+        <h1 id="name"></h1>
         <div class="text-box">
             <div class="nutritional-info">
+                <div>
+                    <!-- Title "Calories" -->
+                    <div class="nutritional-title">Calories</div>
+                    <svg class="progress-ring" width="250" height="250">
+                        <circle class="progress-ring_circle-calories" stroke="green" stroke-width="6" fill="transparent" r="120" cx="125" cy="125"></circle>
+                        <text id="calories-counter" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">-- / --</text>
+                    </svg>
+                </div>
                 <div class="circle-container">
                     <div class="item-container">
                         <!-- Title "Fat" -->
                         <div class="nutritional-title">Fat</div>
                         <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring__circle" stroke="#00FFF0" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
-                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">120/120</text>
+                            <circle class="progress-ring_circle-fat" stroke="#00FFF0" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
+                            <text id="fat-counter" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">-- / --</text>
                         </svg>
                     </div>
                     <div class="item-container">
                         <!-- Title "Carbs" -->
                         <div class="nutritional-title">Carbs</div>
                         <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring__circle" stroke="#FF0000" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
-                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">120/120</text>
+                            <circle class="progress-ring_circle-carbs" stroke="#FF0000" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
+                            <text id="carbs-counter" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">-- / --</text>
                         </svg>
                     </div>
                     <div class="item-container">
                         <!-- Title "Protein" -->
                         <div class="nutritional-title">Protein</div>
                         <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring__circle" stroke="gold" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
-                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">120/120</text>
+                            <circle class="progress-ring_circle-protein" stroke="gold" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
+                            <text id="protein-counter" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">-- / --</text>
                         </svg>
                     </div>
                 </div>
@@ -55,6 +64,6 @@
             </div>
         </div>
     </div>
-    <script src="../static/profile.js"></script>
+    <script src="../static/import-profile.js"></script>
 </body>
 </html>
