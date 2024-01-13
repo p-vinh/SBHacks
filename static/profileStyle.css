@@ -72,7 +72,7 @@ hr {
 }
 
 .main-container {
-  top: 30%;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
@@ -131,10 +131,92 @@ hr {
   stroke-dashoffset: 0;
 }
 
+.progress-ring_circle-sodium {
+  transition: stroke-dashoffset 5s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  stroke-dasharray: 327;
+  stroke-dashoffset: 0;
+}
+
 .progress-ring_circle-calories {
   transition: stroke-dashoffset 5s;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
   stroke-dasharray: 754;
   stroke-dashoffset: 0;
+}
+
+.change-button {
+  background-color: #be9e44;
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.change-button:hover {
+  background-color: #8e7635;
+  color: #000000;
+}
+
+.accordion-button {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.accordion-container {
+  position: relative;
+}
+.accordion-content {
+  position: absolute;
+  width: 100%;
+  max-height: 0;
+  font-size: 16px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #363333;
+  box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.popup-window {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 20% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  color: 
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

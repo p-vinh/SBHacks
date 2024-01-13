@@ -12,10 +12,12 @@ function debugAPICall() {
         "total-protein": 10,
         "total-fat": 30,
         "total-calories": 100,
-        "goal-carbs": 200,
+        "total-sodium": 1,
+        "goal-carbs": 2000,
         "goal-protein": 50,
         "goal-fat": 50,
-        "goal-calories": 2000
+        "goal-calories": 2000,
+        "goal-sodium": 20
     });
 }
 
@@ -64,4 +66,45 @@ function updateProfile() {
     percent = Math.round(total / goal * 100);
     document.getElementById("protein-counter").innerHTML = total + "/" + goal;
     setProgress(percent, ".progress-ring_circle-protein");
+
+    total = profile["total-sodium"]
+    goal = profile["goal-sodium"]
+    percent = Math.round(total / goal * 100);
+    document.getElementById("sodium-counter").innerHTML = total + "/" + goal;
+    setProgress(percent, ".progress-ring_circle-sodium");
+}
+
+
+var acc = document.getElementsByClassName("accordion-button");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function () {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight*2 + "px";
+    }
+  });
+}
+
+
+var popup = document.getElementById('popup-window');
+var btn = document.querySelector('.change-button');
+var span = document.querySelector('.close');
+
+btn.onclick = function() {
+  popup.style.display = "block";
+}
+
+span.onclick = function() {
+  popup.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == popup) {
+    popup.style.display = "none";
+  }
 }
