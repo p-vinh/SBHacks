@@ -2,8 +2,8 @@ window.onload = function () {
   document.getElementById("profileLink").onclick = updateProfile();
 };
 
-function debugAPICall() {
-  console.log("API call");
+function importFromDB() {
+  console.log("Retrieving data from database...");
   return JSON.stringify({
     name: "John Doe",
     email: "yourexample@gmail.com",
@@ -37,7 +37,7 @@ function updateProfile(data = null) {
   let profile; // Get API call here
   if (data == null) {
     // Get API call here
-    profile = JSON.parse(debugAPICall());
+    profile = JSON.parse(importFromDB());
   } else {
     profile = JSON.parse(data);
   }
@@ -135,7 +135,7 @@ function changeGoals() {
   let sodium = document.getElementById("target-sodium").value
     ? document.getElementById("target-sodium").value
     : 0;
-  let old_data = JSON.parse(debugAPICall());
+  let old_data = JSON.parse(importFromDB());
   let data = JSON.stringify({
     name: old_data["name"],
     "total-carbs": old_data["total-carbs"],
