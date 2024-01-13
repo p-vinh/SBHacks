@@ -5,6 +5,35 @@
     <meta charset="utf-8"> 
     <title>Profile Page</title>
     <link rel="stylesheet" href="../static/profileStyle.css">
+    <style>
+        .nutritional-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nutritional-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .circle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .circle-gold {
+            width: 100px;
+            height: 100px;
+            border: 8px solid gold; /* Gold color for the complete circle */
+            border-radius: 50%;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .nutritional-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
     <section class="header">
@@ -19,8 +48,18 @@
             </div>
         </nav>
         <div class="text-box">
-            <h1>Welcome User!</h1>
-            
+            <div class="nutritional-info">
+                <!-- Title and Circle for Protein -->
+                <div class="circle-container">
+                    <!-- Title "Protein" -->
+                    <div class="nutritional-title">Protein</div>
+
+                    <!-- Gold Circle without cutout -->
+                    <div class="circle-gold"></div>
+                </div>
+                <!-- Add more titles and circles for other nutritional facts as needed -->
+            </div>
         </div>
     </section>
+</body>
 </html>
