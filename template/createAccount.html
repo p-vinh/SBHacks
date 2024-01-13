@@ -64,49 +64,47 @@
         </p>
       </form>
     </div>
+
     <script>
       document.getElementById("backButton").onclick = function () {
         window.history.back();
       };
-      document
-        .getElementById("createAccount")
-        .addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent the default form submission
 
-          const username = document.getElementById("signupUsername").value;
-          const email = document.getElementById("signupEmail").value;
-          const password = document.getElementById("signupPassword").value;
-          const confirmPassword = document.getElementById(
-            "signupPasswordConfirm"
-          ).value;
+      document.getElementById("createAccount").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
 
-          if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-          }
+        const username = document.getElementById("signupUsername").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("signupPasswordConfirm").value;
 
-          // Send data to the server
-          fetch("/create-account", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: username,
-              email: email,
-              password: password,
-            }),
+        if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+
+        // Send data to the server
+        fetch("/create-account", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              window.location.href = "/profile.html"; // Redirect to profile page on successful account creation
+            } else {
+              alert(data.message); // Show error message
+            }
           })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                window.location.href = "/login"; // Redirect to login page on successful account creation
-              } else {
-                alert(data.message); // Show error message
-              }
-            })
-            .catch((error) => console.error("Error:", error));
-        });
+          .catch((error) => console.error("Error:", error));
+      });
     </script>
   </body>
 </html>
