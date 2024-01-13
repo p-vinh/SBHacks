@@ -1,25 +1,31 @@
-function openCam(){
-    let All_mediaDevices=navigator.mediaDevices
-    if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
-       console.log("getUserMedia() not supported.");
-       return;
-    }
-    All_mediaDevices.getUserMedia({
-       audio: true,
-       video: true
+function openCam() {
+  var video = document.getElementById("vid");
+  video.setAttribute("playsinline", "");
+  video.setAttribute("autoplay", "");
+  video.setAttribute("muted", "");
+
+  /* Setting up the constraint */
+  var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera (NEAT!)
+  var constraints = {
+    audio: false,
+    video: {
+      facingMode: facingMode,
+    },
+  };
+
+  let All_mediaDevices = navigator.mediaDevices;
+  if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+    console.log("getUserMedia() not supported.");
+    return;
+  }
+
+  /* Stream it to video element */
+  navigator.mediaDevices
+    .getUserMedia(constraints)
+    .then(function success(stream) {
+      video.srcObject = stream;
     })
-    .then(function(vidStream) {
-       var video = document.getElementById('videoCam');
-       if ("srcObject" in video) {
-          video.srcObject = vidStream;
-       } else {
-          video.src = window.URL.createObjectURL(vidStream);
-       }
-       video.onloadedmetadata = function(e) {
-          video.play();
-       };
-    })
-    .catch(function(e) {
-       console.log(e.name + ": " + e.message);
+    .catch(function (e) {
+      console.log(e.name + ": " + e.message);
     });
- }
+}

@@ -149,3 +149,8 @@ h3 {
 .creator-col:hover {
     box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
 }
+
+hr {
+    margin-top: 10px;
+    border: 1px solid #9c8546;
+}

@@ -9,7 +9,7 @@ body {
 }
 
 .header{
-    min-height: 100vh;
+    min-height: 30vh;
     width: 100%;
     background-image: linear-
     gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url(NutriBotLogo.png);
@@ -63,13 +63,26 @@ nav img {
     width: 100%;
 }
 
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .text-box{
-    width: 90%;
+    padding: 50px;
     color: #ffffff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: inline-block;
+    text-align: center;
+    margin: 70px;
+    line-height: 50px;
+}
+
+
+video {
+    margin-top: 50px;
+    width: 50%;
+    height: 50%;
 }
 
 .scanner__button {
@@ -88,4 +101,9 @@ nav img {
     border: 1px solid #CBB26A;
     background: #be9e44;
     transition: 1s;
+}
+
+hr {
+    margin-top: 10px;
+    border: 1px solid #9c8546;
 }

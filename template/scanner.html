@@ -17,20 +17,20 @@
                 </ul>
             </div>
         </nav>
+    <hr>
     </section>
     <div class="container">
-        <div class="scanner">
-            <div class="text-box">         
-                <h1>Scanner</h1>
-                <p>Scan the barcode of the food you want to track.</p>
-                <button class="scanner__button" id="button" autoplay>Scan</button>
-                <div>
-                    <video id="vid"></video>
-                </div>
+        <div class="text-box">         
+            <h1>Scanner</h1>
+            <p>Scan the barcode of the food you want to track.</p>
+            <button class="scanner__button" id="button" onclick="openCam()">Scan</button>
+            <div class="video-embed">
+                <video id="vid"></video>
             </div>
-            <div class="scanner__preview"></div>
-            <div class="scanner__result"></div>
         </div>
+            <!-- <div class="scanner__preview"></div>
+            <div class="scanner__result"></div> -->
     </div>
     <script src="../static/scanner.js"></script>
+</body>
 </html>

@@ -5,35 +5,6 @@
     <meta charset="utf-8"> 
     <title>Profile Page</title>
     <link rel="stylesheet" href="../static/profileStyle.css">
-    <style>
-        .nutritional-info {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .nutritional-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .circle-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .circle-gold {
-            width: 100px;
-            height: 100px;
-            border: 8px solid gold; /* Gold color for the complete circle */
-            border-radius: 50%;
-            margin-bottom: 10px;
-            position: relative;
-        }
-        .nutritional-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-    </style>
 </head>
 <body>
     <section class="header">
@@ -47,19 +18,43 @@
                 </ul>
             </div>
         </nav>
+        <hr>
+    </section>
+    
+    <div class="main-container">
+        <h1>Welcome ---!</h1>
         <div class="text-box">
             <div class="nutritional-info">
-                <!-- Title and Circle for Protein -->
                 <div class="circle-container">
-                    <!-- Title "Protein" -->
-                    <div class="nutritional-title">Protein</div>
-
-                    <!-- Gold Circle without cutout -->
-                    <div class="circle-gold"></div>
+                    <div class="item-container">
+                        <!-- Title "Fat" -->
+                        <div class="nutritional-title">Fat</div>
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring__circle" stroke="#00FFF0" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
+                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">120/120</text>
+                        </svg>
+                    </div>
+                    <div class="item-container">
+                        <!-- Title "Carbs" -->
+                        <div class="nutritional-title">Carbs</div>
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring__circle" stroke="#FF0000" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
+                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">120/120</text>
+                        </svg>
+                    </div>
+                    <div class="item-container">
+                        <!-- Title "Protein" -->
+                        <div class="nutritional-title">Protein</div>
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring__circle" stroke="gold" stroke-width="6" fill="transparent" r="52" cx="60" cy="60"></circle>
+                            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="24px">120/120</text>
+                        </svg>
+                    </div>
                 </div>
                 <!-- Add more titles and circles for other nutritional facts as needed -->
             </div>
         </div>
-    </section>
+    </div>
+    <script src="../static/profile.js"></script>
 </body>
 </html>
