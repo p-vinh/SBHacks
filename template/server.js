@@ -46,7 +46,7 @@ app.post('/create-account', (req, res) => {
 
 // Append goals to an existing user file
 app.post('/add-goals', (req, res) => {
-  const { username, calorieGoal, fatGoal, carbGoal, proteinGoal } = req.body;
+  const { username, calorieGoal, fatGoal, carbGoal, proteinGoal,sodiumGoal } = req.body;
 
   const userFilePath = path.join(__dirname, 'user-data', `${username}.json`);
 
@@ -63,6 +63,7 @@ app.post('/add-goals', (req, res) => {
         fatGoal,
         carbGoal,
         proteinGoal,
+        sodiumGoal
       };
 
       fs.writeFile(userFilePath, JSON.stringify(userData), (err) => {
