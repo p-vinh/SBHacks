@@ -1,12 +1,12 @@
 // Import necessary modules
-const express = require('express');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-const { exec } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const cors = require('cors');
-const { Storage } = require('@google-cloud/storage'); // Added line
+const express = require("express");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const { exec } = require("child_process");
+const fs = require("fs");
+const path = require("path");
+const cors = require("cors");
+const { Storage } = require("@google-cloud/storage"); // Added line
 const app = express();
 const port = 3000;
 
@@ -18,9 +18,9 @@ app.use(express.static(__dirname));
 
 // Initialize Google Cloud Storage
 const storage = new Storage({
-  keyFilename: path.join(__dirname, 'ServiceKey_GoogleCloud.json'),
+  keyFilename: path.join(__dirname, "ServiceKey_GoogleCloud.json"),
 });
-const bucketName = 'nutribot_data_bucket';
+const bucketName = "nutribot_data_bucket";
 
 // Handle form submission for creating an account
 app.post("/create-account", (req, res) => {
@@ -55,11 +55,23 @@ app.post("/create-account", (req, res) => {
 });
 
 // Append goals to an existing user file
-app.post('/add-goals', async (req, res) => {
-  const { username, calorieGoal, fatGoal, carbGoal, proteinGoal, sodiumGoal } = req.body;
-  const userFilePath = path.join(__dirname, 'user-data', `${username}.json`);
+app.post("/add-goals", async (req, res) => {
+  const {
+    username,
+    calorieGoal,
+    fatGoal,
+    carbGoal,
+    proteinGoal,
+    sodiumGoal,
+    calories = 0,
+    fats = 0,
+    carbs = 0,
+    proteins = 0,
+    sodiums = 0,
+  } = req.body;
+  const userFilePath = path.join(__dirname, "user-data", `${username}.json`);
 
-  fs.readFile(userFilePath, 'utf8', (err, data) => {
+  fs.readFile(userFilePath, "utf8", (err, data) => {
     if (err) {
       console.error("Error reading file:", err);
       res.json({ success: false, message: "Error appending goals" });
@@ -72,7 +84,15 @@ app.post('/add-goals', async (req, res) => {
         fatGoal,
         carbGoal,
         proteinGoal,
-        sodiumGoal
+        sodiumGoal,
+      };
+
+      userData.current = {
+        calories,
+        fats,
+        carbs,
+        proteins,
+        sodiums,
       };
 
       fs.writeFile(userFilePath, JSON.stringify(userData), async (err) => {
@@ -89,14 +109,20 @@ app.post('/add-goals', async (req, res) => {
               destination: storagePath,
               public: true,
               metadata: {
-                contentType: 'application/json',
+                contentType: "application/json",
               },
             });
 
-            res.json({ success: true, message: 'Goals and file uploaded successfully', goals: userData.goals });
+            res.json({
+              success: true,
+              message: "Goals and file uploaded successfully",
+              goals: userData.goals,
+            });
           } catch (error) {
-            console.error('Error uploading file to GCS:', error);
-            res.status(500).json({ success: false, message: 'Error uploading file to GCS' });
+            console.error("Error uploading file to GCS:", error);
+            res
+              .status(500)
+              .json({ success: false, message: "Error uploading file to GCS" });
           }
         }
       });
@@ -114,7 +140,7 @@ app.post("/login", (req, res) => {
     // Read the user data from the file
     const userData = JSON.parse(fs.readFileSync(userFilePath, "utf8"));
 
-    app.get('/endpoint', (req, res) => {
+    app.get("/endpoint", (req, res) => {
       let data = {
         message: JSON.stringify(userData),
       };
@@ -168,7 +194,6 @@ app.post("/login", (req, res) => {
 //     res.status(400).json({ success: false, message: 'No file upload' });
 //   }
 // });
-
 
 // Start the server
 app.listen(port, () => {

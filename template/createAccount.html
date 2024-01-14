@@ -142,9 +142,9 @@
           Continue
         </button>
         <!-- Button to add goals after the initial user creation -->
-        <button class="form__button" type="button" id="addGoalsButton">
+        <!-- <button class="form__button" type="button" id="addGoalsButton">
           Add Goals
-        </button>
+        </button> -->
       </form>
     </div>
     <script>
@@ -205,7 +205,7 @@
           const sodiumGoal = document.getElementById("sodiumGoal").value;
 
         // Make a request to add goals
-        fetch("/add-goals", {
+        fetch('/add-goals', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -230,6 +230,8 @@
             }
           })
           .catch((error) => console.error("Error:", error));
+
+          window.location.href = "/profile.html";
       });
     </script>
   </body>

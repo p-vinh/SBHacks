@@ -168,41 +168,82 @@
         <p style="font-family: 'Broadway', sans-serif">
           Upload a file to start dominating your health.
         </p>
-        <input type="file" id="fileInput" style="display: none;" onchange="uploadFile()" />
+        <input
+          type="file"
+          id="fileInput"
+          style="display: none"
+          onchange="uploadFile()"
+        />
         <button
           class="scanner__button"
           id="button"
-          onclick="document.getElementById('fileInput').click()"
+          onclick="document.getElementById('fileInput').click();"
         >
           Upload
         </button>
 
         <script>
           function uploadFile() {
-              var fileInput = document.getElementById('fileInput');
-              var file = fileInput.files[0];
-              var formData = new FormData();
-              formData.append('file', file);
-          
-              fetch('http://localhost:3000/upload', {
-                  method: 'POST',
-                  body: formData
+            var fileInput = document.getElementById("fileInput");
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append("file", file);
+
+            var previewImage = document.createElement("img");
+            previewImage.src = URL.createObjectURL(file);
+
+            var uploadedImages = document.getElementById("uploaded-images");
+            uploadedImages.appendChild(previewImage);
+
+            fetch("http://localhost:3000/upload", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Handle the response data with the nutrition info here
+                console.log(data);
               })
-              .then(response => response.json())
-              .then(data => {
-                  // Handle the response data with the nutrition info here
-                  console.log(data);
-              })
-              .catch(error => console.error('Error:', error));
+              .catch((error) => console.error("Error:", error));
           }
-          </script>
+
+          function barcodeLookup() {
+            var barcodeInput = document.getElementById("barcodeInput");
+            var barcode = barcodeInput.value;
+
+            fetch("http://localhost:3000/upload", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ barcode: barcode }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Handle the response data here
+                console.log(data);
+              })
+              .catch((error) => console.error("Error:", error));
+          }
+
+        </script>
+
         <input
           type="text"
           id="barcodeInput"
           placeholder="Enter barcode"
+          onkeydown="if (event.key === 'Enter') barcodeLookup();"
         />
-        <button class="scanner__button" id="button" onclick="translateContainer()">Upload</button>
-        <section id="uploaded-images"></section>
+        <button
+          class="verify__button"
+          id="button"
+          onclick="translateContainer()"
+        >
+          Verify
+        </button>
+        <div id="uploaded-images">
+          <img id="previewImage" />
+        </div>
       </div>
     </div>
 
@@ -214,18 +255,10 @@
       </div>
     </div>
 
-    <script src="scripts/scanner.js"></script>
     <script>
       let activeButton = null;
 
       function translateContainer() {
-        $.ajax({
-          type: "POST",
-          url: "~/barcodeAPI.py",
-          data: { param: text },
-        }).done(function (o) {
-          console.log("executed python file");
-        });
         const container = document.querySelector(".container");
         const dataContainer = document.querySelector(".data-container");
         const nutrientButtonsContainer =
