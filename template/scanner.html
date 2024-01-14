@@ -183,6 +183,7 @@
         </button>
 
         <script>
+          /*
           function uploadFile() {
             var fileInput = document.getElementById("fileInput");
             var file = fileInput.files[0];
@@ -202,11 +203,12 @@
               .then((response) => response.json())
               .then((data) => {
                 // Handle the response data with the nutrition info here
+                
                 console.log(data);
               })
               .catch((error) => console.error("Error:", error));
           }
-          /*
+          
           function barcodeLookup() {
             var barcodeInput = document.getElementById("barcodeInput");
             var barcode = barcodeInput.value;
@@ -257,6 +259,39 @@
     </div>
 
     <script>
+      const info = {
+        "Vitamin A": ""
+      }
+      let nutrients = null;
+
+      function uploadFile() {
+        var fileInput = document.getElementById("fileInput");
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append("file", file);
+
+        var previewImage = document.createElement("img");
+        previewImage.src = URL.createObjectURL(file);
+
+        var uploadedImages = document.getElementById("uploaded-images");
+        uploadedImages.appendChild(previewImage);
+
+        fetch("http://localhost:3000/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Handle the response data with the nutrition info here
+            console.log(data);
+            data.forEach((micronutrient) => {
+              // Do something with each micronutrient here
+              console.log(micronutrient);
+            });
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
       let activeButton = null;
 
       function translateContainer() {
@@ -287,7 +322,6 @@
           ["Zinc", "42 grams", "15% Daily Intake", "Information E"],
           ["Vitamin D", "12 grams", "25% Daily Intake", "Information A"],
           ["Potassium", "10 grams", "50% Daily Intake", "Information A"],
-          // Add more nutrients as needed
         ];
 
         // Create containers for each button and its corresponding data
