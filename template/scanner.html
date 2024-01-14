@@ -34,14 +34,35 @@
         <p style="font-family: 'Broadway', sans-serif">
           Upload a file to start dominating your health.
         </p>
-        <input type="file" id="fileInput" style="display: none;" />
-        <button
+        <input type="file" id="fileInput" style="display: none;" onchange="uploadFile()" />
+       <button
           class="scanner__button"
           id="button"
           onclick="document.getElementById('fileInput').click()"
         >
           Upload
-        </button>
+        </button> 
+
+        <script> 
+        function uploadFile() {
+          const fileInput = document.getElementById('fileInput')
+          const file =  fileInput.files[0];
+          const formData = new FormData();
+          formData.append('file', file);
+
+          fetch('http://localhost:3000/upload', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          })
+        }
+        </script>
         <input
           type="text"
           id="barcodeInput"
