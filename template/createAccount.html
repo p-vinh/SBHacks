@@ -7,12 +7,23 @@
     <link rel="shortcut icon" href="/assets/favicon.ico" />
     <!-- Link to CSS file -->
     <link rel="stylesheet" href="styles/loginStyle.css" />
-    <script src="scripts/createAccount.js"></script>
   </head>
   <body>
     <div class="container" id="step1">
-      <form class="form" id="createAccount">
-        <button type="button" class="back" id="backButton" onclick="window.history.back()">Back</button>
+      <form
+        class="form"
+        id="createAccount"
+        action="/create-account"
+        method="POST"
+      >
+        <button
+          type="button"
+          class="back"
+          id="backButton"
+          onclick="window.history.back()"
+        >
+          Back
+        </button>
         <h1 class="form__title">Create Account</h1>
         <div class="form__message form__message--error"></div>
 
@@ -67,7 +78,14 @@
     </div>
     <div class="container" id="step2" style="display: none">
       <form class="formGoal" id="createGoals">
-        <button type="button" class="back" id="backButton2" onclick="window.history.back()">Back</button>
+        <button
+          type="button"
+          class="back"
+          id="backButton2"
+          onclick="window.history.back()"
+        >
+          Back
+        </button>
         <h1 class="form__title">Create New Goals</h1>
         <div class="form__message form__message--error"></div>
 
@@ -117,5 +135,63 @@
         </button>
       </form>
     </div>
+    <script>
+      document.getElementById("backButton").onclick = function () {
+        window.history.back();
+      };
+
+      document
+        .getElementById("createAccount")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          const username = document.getElementById("signupUsername").value;
+          const email = document.getElementById("signupEmail").value;
+          const password = document.getElementById("signupPassword").value;
+          const confirmPassword = document.getElementById(
+            "signupPasswordConfirm"
+          ).value;
+          const calorieGoal = document.getElementById("calorieGoal").value;
+          const fatGoal = document.getElementById("fatGoal").value;
+          const carbGoal = document.getElementById("carbGoal").value;
+          const proteinGoal = document.getElementById("proteinGoal").value;
+
+
+          document.getElementById("step1").style.display = "none";
+          document.getElementById("step2").style.display = "block";
+
+
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+
+          // Send data to the server
+          fetch("/create-account", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: username,
+              email: email,
+              password: password,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (!data.success) {
+                alert(data.message); // Show error message
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+
+        document.getElementById("continueButton").addEventListener("click", function(event) {
+          event.preventDefault();
+          window.location.href = "profile.html";
+        });
+    </script>
   </body>
 </html>

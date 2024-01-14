@@ -9,7 +9,7 @@ const port = 3000;
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 
-// Serve static files from the current directory
+// Serve template files from the current directory
 app.use(express.static(__dirname));
 
 // Handle form submission
@@ -19,8 +19,22 @@ app.use(bodyParser.json());
 // Handle form submission for creating an account
 app.post('/create-account', (req, res) => {
   const { username, email, password } = req.body;
+  const userData = {
+    username,
+    email,
+    password
+  };
 
-  res.json({ success: true, message: 'Account created successfully' });
+  const userFilePath = path.join(__dirname, 'user-data', `${username}.json`);
+
+  fs.writeFile(userFilePath, JSON.stringify(userData), (err) => {
+    if (err) {
+      console.error('Error writing file:', err);
+      res.json({ success: false, message: 'Error creating account' });
+    } else {
+      res.json({ success: true, message: 'Account created successfully' });
+    }
+  });
 });
 
 // Handle form submission for login

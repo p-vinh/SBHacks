@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("createAccount")
     .addEventListener("submit", function (event) {
       event.preventDefault(); // Prevent the default form submission
-      const username = document.getElementById("signupUsername").value;
+      const userName = document.getElementById("signupUsername").value;
       const email = document.getElementById("signupEmail").value;
       const password = document.getElementById("signupPassword").value;
       const confirmPassword = document.getElementById(
@@ -20,6 +20,29 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
     });
+
+    fetch("/create-account", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: userName,
+          email: email,
+          password: password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            window.location.href = "/profile.html"; // Redirect to profile page on successful account creation
+          } else {
+            alert(data.message); // Show error message
+          }
+
+        })
+        .catch((error) => console.error("Error:", error));
+    
   document
     .getElementById("continueButton")
     .addEventListener("click", function (event) {
