@@ -250,6 +250,12 @@ Certainly! Here's the modified code:
     // Calculate the position based on the active button
     
     function displayNutrientData(nutrient, index) {
+    // Remove existing textAboveBar element
+    const existingTextAboveBar = document.querySelector('.text-above-bar');
+    if (existingTextAboveBar) {
+        existingTextAboveBar.remove();
+    }
+
     const nutrientsList = document.getElementById('nutrientsList');
     nutrientsList.innerHTML = ''; // Clear existing list items
 
@@ -260,7 +266,6 @@ Certainly! Here's the modified code:
     const columnDiv = document.createElement('div');
     columnDiv.classList.add('data-column');
     columnDiv.textContent = nutrient[3];
-    listItem.appendChild(columnDiv);
 
     nutrientsList.appendChild(listItem);
 
@@ -279,20 +284,23 @@ Certainly! Here's the modified code:
             const activeButtonRect = activeButton.getBoundingClientRect();
 
             // Create or get the textAboveBar element
-            let textAboveBar = document.querySelector('.text-above-bar');
-            if (!textAboveBar) {
-                textAboveBar = document.createElement('div');
-                textAboveBar.classList.add('data-column', 'text-above-bar');
-                textAboveBar.style.pointerEvents = 'none'; // Make the text non-interactive
-                document.querySelector('.data-container').appendChild(textAboveBar);
-            }
+            let textAboveBar = document.createElement('div');
+            textAboveBar.classList.add('data-column', 'text-above-bar');
+            textAboveBar.style.pointerEvents = 'none'; // Make the text non-interactive
+            textAboveBar.style.whiteSpace = 'normal'; // Allow text to wrap
+            textAboveBar.style.maxWidth = '800px'; // Set a specific width for wrapping
+            textAboveBar.style.fontSize = '15px'; // Set the text size
+            textAboveBar.style.fontFamily = 'Arial, sans-serif'; // Set the font family
 
             // Set the position and z-index relative to the active button
             textAboveBar.style.position = 'absolute';
-            textAboveBar.style.top = `${activeButtonRect.top - barRect.top}px`;
+            textAboveBar.style.top = `${activeButtonRect.top - barRect.top+5}px`;
             textAboveBar.style.left = `${activeButtonRect.right - barRect.left}px`;
             textAboveBar.style.zIndex = '1'; // Set z-index to bring it to the foreground
             textAboveBar.textContent = nutrientValue; // Update the content with the fourth column of the nutrient button
+
+            // Append the textAboveBar to the data container
+            document.querySelector('.data-container').appendChild(textAboveBar);
         }, 1500); // Adjust the duration as needed
     }
 
