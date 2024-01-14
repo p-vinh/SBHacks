@@ -127,18 +127,17 @@
             class="form__input"
             placeholder="Protein Goal"
           />
-          <div class="form__input-error-message"></div>
         </div>
-        <div class="form__input-group">
-          <input
-            type="text"
-            id="sodiumGoal"
-            class="form__input"
-            placeholder="Sodium Goal"
-          />
+          <div class="form__input-group">
+            <input
+              type="text"
+              id="sodiumGoal"
+              class="form__input"
+              placeholder="Sodium Goal"
+            />
+          </div>
           <div class="form__input-error-message"></div>
-        </div>
-
+        
         <button class="form__button" type="submit" id="continueButton">
           Continue
         </button>
@@ -205,34 +204,33 @@
           const proteinGoal = document.getElementById("proteinGoal").value;
           const sodiumGoal = document.getElementById("sodiumGoal").value;
 
-          // Make a request to add goals
-          fetch("/add-goals", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: username,
-              calorieGoal: calorieGoal,
-              fatGoal: fatGoal,
-              carbGoal: carbGoal,
-              proteinGoal: proteinGoal,
-              sodiumGoal: sodiumGoal,
-            }),
+        // Make a request to add goals
+        fetch("/add-goals", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            calorieGoal: calorieGoal,
+            fatGoal: fatGoal,
+            carbGoal: carbGoal,
+            proteinGoal: proteinGoal,
+            sodiumGoal: sodiumGoal
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              // Goals appended successfully, you can handle the response data as needed
+              console.log("Goals appended successfully:", data.goals);
+            } else {
+              // Error appending goals, handle the error message
+              console.error("Error appending goals:", data.message);
+            }
           })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                // Goals appended successfully, you can handle the response data as needed
-                console.log("Goals appended successfully:", data.goals);
-              } else {
-                // Error appending goals, handle the error message
-                console.error("Error appending goals:", data.message);
-              }
-            })
-            .catch((error) => console.error("Error:", error));
-          window.location.href = "profile.html";
-        });
+          .catch((error) => console.error("Error:", error));
+      });
     </script>
   </body>
 </html>

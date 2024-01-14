@@ -168,7 +168,7 @@
         <p style="font-family: 'Broadway', sans-serif">
           Upload a file to start dominating your health.
         </p>
-        <input type="file" id="fileInput" style="display: none" />
+        <input type="file" id="fileInput" style="display: none;" onchange="uploadFile()" />
         <button
           class="scanner__button"
           id="button"
@@ -176,14 +176,32 @@
         >
           Upload
         </button>
-        <input type="text" id="barcodeInput" placeholder="Enter barcode" />
-        <button
-          class="scanner__button"
-          id="verify__button"
-          onclick="translateContainer()"
-        >
-          Verify
-        </button>
+
+        <script>
+          function uploadFile() {
+              var fileInput = document.getElementById('fileInput');
+              var file = fileInput.files[0];
+              var formData = new FormData();
+              formData.append('file', file);
+          
+              fetch('http://localhost:3000/upload', {
+                  method: 'POST',
+                  body: formData
+              })
+              .then(response => response.json())
+              .then(data => {
+                  // Handle the response data with the nutrition info here
+                  console.log(data);
+              })
+              .catch(error => console.error('Error:', error));
+          }
+          </script>
+        <input
+          type="text"
+          id="barcodeInput"
+          placeholder="Enter barcode"
+        />
+        <button class="scanner__button" id="button" onclick="translateContainer()">Upload</button>
         <section id="uploaded-images"></section>
       </div>
     </div>
