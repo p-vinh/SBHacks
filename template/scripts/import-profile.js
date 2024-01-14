@@ -1,16 +1,19 @@
 let data = null;
+let loggedInUser = "";
+
 window.onload = function () {
   document.getElementById("profileLink").onclick = updateProfile(data);
 };
 
-
-fetch('/endpoint')
-  .then(response => response.json())
-  .then(responseData => {
+fetch("/endpoint")
+  .then((response) => response.json())
+  .then((responseData) => {
     console.log(responseData.message);
     data = responseData.message;
+    console.log(data);
+    loggedInUser = data.username;
   })
-  .catch(error => console.error('Error:', error));
+  .catch((error) => console.error("Error:", error));
 
 function importFromDB() {
   console.log("Retrieving data from database...");
@@ -84,7 +87,6 @@ for (var i = 0; i < acc.length; i++) {
   });
 }
 
-
 var popup = document.getElementById("popup-window");
 var btn = document.querySelector(".change-button");
 var span = document.querySelector(".close");
@@ -119,19 +121,24 @@ function changeGoals() {
   let sodium = document.getElementById("target-sodium").value
     ? document.getElementById("target-sodium").value
     : 0;
-  let old_data = importFromDB();
+  let old_data = JSON.parse(importFromDB());
+  console.log(old_data);
   let data = JSON.stringify({
-    name: old_data.username,
-    "total-carbs": old_data.current.carbs,
-    "total-protein": old_data.current.proteins,
-    "total-fat": old_data.current.fats,
-    "total-calories": old_data.current.calories,
-    "total-sodium": old_data.current.sodiums,
-    "goal-carbs": carbs,
-    "goal-protein": protein,
-    "goal-fat": fat,
-    "goal-calories": calories,
-    "goal-sodium": sodium,
+    username: old_data.username,
+    current: {
+      "carbs": old_data.current.carbs,
+      "proteins": old_data.current.proteins,
+      "fats": old_data.current.fats,
+      "calories": old_data.current.calories,
+      "sodiums": old_data.current.sodiums,
+    },
+    goals: {
+      "carbGoal": carbs,
+      "proteinGoal": protein,
+      "fatGoal": fat,
+      "calorieGoal": calories,
+      "sodiumGoal": sodium,
+    }
   });
   console.log(data);
   // Send data to API here

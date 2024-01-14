@@ -186,9 +186,7 @@
           })
             .then((response) => response.json())
             .then((data) => {
-              if (!data.success) {
-                alert(data.message); // Show error message
-              }
+              console.log(data);
             })
             .catch((error) => console.error("Error:", error));
         });

@@ -228,7 +228,6 @@
               .catch((error) => console.error("Error:", error));
           }
           */
-
         </script>
 
         <input
@@ -249,7 +248,6 @@
         </div>
       </div>
     </div>
-
     <!-- New data container -->
     <div class="data-container">
       <div class="nutrient-buttons" id="nutrientButtons"></div>
@@ -260,11 +258,24 @@
 
     <script>
       const info = {
-        "Vitamin A": ""
-      }
-      let nutrients = null;
+        "Vitamin A":
+          " Vitamin A plays a pivotal role in maintaining vision health, supporting the immune system, and promoting growth. Primary dietary sources of this vitamin include fish, dairy products, and eggs. Deficiencies in Vitamin A are rare due to its widespread presence in the majority of foods.",
+        "Vitamin B":
+          "Vitamin B encompasses a group of vitamins, including B1, B2, B3, B5, B6, B7, B9, and B12. It is advisable to conduct thorough research on the specific vitamin you are consuming, as each member of the B-vitamin complex possesses unique properties and benefits. Understanding the distinct characteristics of each vitamin within the B group contributes to a more informed approach to nutritional intake and overall well-being.",
+        "Vitamin C":
+          "Vitamin C plays a crucial role in infection control and wound healing. Additionally, it is involved in the synthesis of a connective protein present in various bodily systems. The recommended daily intake is 90 mg for men and 75 mg for women. It is important to note that megadosing on Vitamin C is a common practice and can result in adverse effects, including diarrhea, kidney stones, and elevated levels of iron in the blood. Caution should be exercised to ensure optimal intake without exceeding recommended limits.",
+        "Vitamin D":
+          "Vitamin D plays a pivotal role in promoting bone health and growth, with demonstrated benefits in protecting adults from osteoporosis. The primary source of Vitamin D is exposure to UV rays from the sun. Adequate sunlight exposure is crucial for synthesizing Vitamin D in the skin, contributing to its essential functions in maintaining skeletal integrity and overall well-being.",
+        Calcium:
+          "Calcium plays a vital role in supporting healthy bones and is essential for muscle contraction, nerve function, and maintaining a regular heart rhythm. In instances where the body lacks a sufficient amount of calcium for its functions, it may draw from the calcium stored in bones, potentially leading to instability. Dairy products are a common source of calcium, and it is recommended to ensure a daily intake of around 1000 mg of calcium to meet the body's requirements for optimal health and functionality.",
+        Iron: "Iron is a crucial mineral in the body essential for growth. It facilitates the formation of proteins that transport oxygen throughout the blood and to muscles. Common sources of iron include lean meat, seafood, nuts, and breads. For specific daily recommendations, refer to the attached chart outlining the recommended daily amount of iron for optimal health and well-being.",
+        Potassium:
+          "Potassium is an essential mineral utilized by all tissues in the body. Its primary functions include activating cell processes and regulating normal fluid levels outside of cells. Additionally, potassium plays a vital role in muscle contraction and blood pressure regulation. Common dietary sources of potassium include dried fruits, beans, potatoes, and oranges. Insufficient potassium levels can result in symptoms such as fatigue, muscle cramps, constipation, and, in severe cases, muscle paralysis. Ensuring an adequate intake of potassium is crucial for maintaining overall health and proper bodily functions.",
+        Zinc: "Zinc, a trace mineral, is essential in small amounts but plays a vital role in numerous bodily processes. It is integral for DNA synthesis, cell growth, protein building, and tissue healing. The recommended daily intake is 11 mg for men and 8 mg for women. Zinc-rich foods include shellfish, beef, pork, nuts, seeds, and whole grains, among other sources. Ensuring an adequate daily intake of zinc is crucial for supporting various physiological functions and promoting overall health",
+      };
+      let nutrients = [];
 
-      function uploadFile() {
+      async function uploadFile() {
         var fileInput = document.getElementById("fileInput");
         var file = fileInput.files[0];
         var formData = new FormData();
@@ -276,7 +287,7 @@
         var uploadedImages = document.getElementById("uploaded-images");
         uploadedImages.appendChild(previewImage);
 
-        fetch("http://localhost:3000/upload", {
+        await fetch("http://localhost:3000/upload", {
           method: "POST",
           body: formData,
         })
@@ -284,17 +295,48 @@
           .then((data) => {
             // Handle the response data with the nutrition info here
             console.log(data);
-            data.forEach((micronutrient) => {
-              // Do something with each micronutrient here
-              console.log(micronutrient);
+            Object.keys(data.micronutrients).forEach((micronutrient) => {
+              let temp = [
+                micronutrient,
+                data.micronutrients[micronutrient][0] +
+                  " " +
+                  data.micronutrients[micronutrient][1],
+                "",
+                info[micronutrient],
+              ];
+              nutrients.push(temp);
             });
-          })
-          .catch((error) => console.error("Error:", error));
+
+            let temp = [];
+            Object.keys(data.macronutrients).forEach((macronutrient) => {
+              const updatedData = {
+                [macronutrient]: data.macronutrients[macronutrient],
+              };
+              temp.push(updatedData);
+            });
+            fetch("/update-profile", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                username: "vinh",
+                calorieGoal: temp.calories,
+                fatGoal: temp[0].fat,
+                carbGoal: temp[0].carbs,
+                proteinGoal: temp[0].protein,
+                sodiumGoal: temp[0].sodium,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => console.log(data))
+              .catch((error) => console.error("Error:", error));
+          });
       }
 
       let activeButton = null;
 
-      function translateContainer() {
+      async function translateContainer() {
         const container = document.querySelector(".container");
         const dataContainer = document.querySelector(".data-container");
         const nutrientButtonsContainer =
@@ -307,22 +349,6 @@
         // Clear existing buttons and list items
         nutrientButtonsContainer.innerHTML = "";
         nutrientsList.innerHTML = "";
-
-        // Get the data from the nutrients array (replace this with your actual data)
-        const nutrients = [
-          [
-            "Vitamin A",
-            "10 grams",
-            "14% Daily Intake",
-            "Saturated Fats: Saturated fats are characterized by their solid state at room temperature and are considered an unhealthy form of dietary fat. Predominantly sourced from animal products such as meat and dairy, common examples include beef, lamb, pork, and butter.Scientific evidence supports the association of saturated fat consumption with arterial clogging, thereby amplifying the risk of heart attacks and heart disease. It is advisable to limit saturated fat intake to approximately 5 percent of ones daily calorie allowance as a precautionary measure for maintaining cardiovascular health.",
-          ],
-          ["Vitamin B", "20 grams", "13% Daily Intake", "Information B"],
-          ["Protein", "12 grams", "12% Daily Intake", "Information C"],
-          ["Sugars", "37 grams", "10% Daily Intake", "Information D"],
-          ["Zinc", "42 grams", "15% Daily Intake", "Information E"],
-          ["Vitamin D", "12 grams", "25% Daily Intake", "Information A"],
-          ["Potassium", "10 grams", "50% Daily Intake", "Information A"],
-        ];
 
         // Create containers for each button and its corresponding data
         nutrients.forEach((nutrient, index) => {

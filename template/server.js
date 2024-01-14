@@ -11,7 +11,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors());
-const upload = multer({ dest: 'uploads/'})
+const upload = multer({ dest: "uploads/" });
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 
@@ -44,7 +44,7 @@ app.post("/create-account", (req, res) => {
     } else {
       // Send back the user data without goals in the response
       res.json(userDataWithoutGoals);
-      app.get('/endpoint', (req, res) => {
+      app.get("/endpoint", (req, res) => {
         let data = {
           message: JSON.stringify(userDataWithoutGoals),
         };
@@ -132,28 +132,31 @@ app.post("/add-goals", async (req, res) => {
   });
 });
 
-
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post("/upload", upload.single("file"), (req, res) => {
   //checking if file is recieved
-  if(req.file) {
-    const pythonScriptPath = path.join(__dirname, '..', 'server.py'); // Adjust the path as necessary
+  if (req.file) {
+    const pythonScriptPath = path.join(__dirname, "..", "server.py"); // Adjust the path as necessary
     const filePath = path.join(__dirname, req.file.path);
 
-    exec(`python "${pythonScriptPath}" "${filePath}"`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error executing Python script: ${error}`);
-        return res.status(500).json({ success: false, message: 'Error processing image'});
+    exec(
+      `python "${pythonScriptPath}" "${filePath}"`,
+      (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error executing Python script: ${error}`);
+          return res
+            .status(500)
+            .json({ success: false, message: "Error processing image" });
+        }
+        if (stderr) {
+          console.error(`Python script stderr: ${stderr}`);
+        }
+        res.json(JSON.parse(stdout));
       }
-      if (stderr) {
-        console.error(`Python script stderr: ${stderr}`);
-      }
-      res.json(JSON.parse(stdout));
-    });
+    );
   } else {
-    res.status(400).json({ success: false, message: 'No file upload' });
+    res.status(400).json({ success: false, message: "No file upload" });
   }
 });
-
 
 // Handle form submission for login
 app.post("/login", (req, res) => {
@@ -171,7 +174,6 @@ app.post("/login", (req, res) => {
       };
 
       res.json(data);
-      console.log(data);
     });
 
     // Check if the passwords match
@@ -188,6 +190,34 @@ app.post("/login", (req, res) => {
   }
 });
 
+app.post("/update-profile", (req, res) => {
+  const { username, calories, fats, carbs, proteins, sodiums } = req.body;
+  const userFilePath = path.join(__dirname, "user-data", `${username}.json`);
+
+  fs.readFile(userFilePath, "utf8", (err, data) => {
+    if (err) {
+      res.json({ success: false, message: "Error updating profile" });
+      return;
+    }
+    
+    const userData = JSON.parse(data);
+    userData.calories += calories;
+    userData.fats += fats;
+    userData.carbs += carbs;
+    userData.proteins += proteins;
+    userData.sodiums += sodiums;
+
+    const updatedData = JSON.stringify(userData, null, 2);
+
+    fs.writeFile(userFilePath, updatedData, "utf-8", (err) => {
+      if (err) {
+        res.json({ success: false, message: "Error updating profile" });
+      } else {
+        res.json({ success: true, message: "Profile updated successfully" });
+      }
+    });
+  });
+});
 // Modified /upload endpoint to upload to Google Cloud Storage
 // app.post('/upload', upload.single('file'), async (req, res) => {
 //   if (req.file) {

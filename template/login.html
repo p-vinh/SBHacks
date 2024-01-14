@@ -57,13 +57,11 @@
             } else {
               // Parse JSON response for other cases
               const data = await response.json();
-              alert(data.message); // You can replace this with a more sophisticated error display
             }
           } else {
             console.error('Login request failed');
           }
         } catch (error) {
-          console.error('Error:', error);
         }
       });
     </script>
