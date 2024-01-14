@@ -228,6 +228,31 @@
             if (data.success) {
               // Goals appended successfully, you can handle the response data as needed
               console.log("Goals appended successfully:", data.goals);
+              const filePath = `user-data/${username}.json`;
+
+      fetch("/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          file: {
+            path: filePath,
+            filename: `${username}.json`, // Replace with the actual file name
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // File uploaded successfully, handle the response data as needed
+            console.log("File uploaded successfully:", data.message);
+          } else {
+            // Error uploading file, handle the error message
+            console.error("Error uploading file:", data.message);
+          }
+        })
+        .catch((error) => console.error("Error:", error));
             } else {
               // Error appending goals, handle the error message
               console.error("Error appending goals:", data.message);
@@ -235,6 +260,9 @@
           })
           .catch((error) => console.error("Error:", error));
       });
+
+      
+
     </script>
   </body>
 </html>

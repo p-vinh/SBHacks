@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "nutribot-411207",
+  "private_key_id": "0784edeb70eddd61b66234f410a32281274f8c87",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDR65haMzPNvmB0\nCrjKs4KcyhjkaNtlFq6K5hxfo5rFJnXFvoWPRsH8EleblHHxv6gGp4WnrKpy+vrg\nwgqVtNsaRvJizw5L7l6q2Ky7KrpPsDwA0/zURJJrHXISI8zIIVCFjtVdZa70Unuv\nILX6dE0O1SNB7MhCLZ7nvRUjV6B/Ny+3OOI+uRoYiRlk7HJVfiLs4C148BKpldF5\nBAEodjwzAVQcdmqTT7GWHdqHpQQAbZXw7wS1MpTGomZZNkm/2TstxTIgarKV/OHo\n9SJk0SCCVBtoYYRv0xze7vQnIPpFoJVjgecuRGjpmmQEvO/EwPqXPgu8xPEJ4Frm\nB7CKCJKjAgMBAAECggEAROHbB1Yf3JZozgsqohEPfeVvD5w8ycoMkjV6AAQOaDz7\njly7NM2SH+Xg64NldF9ggnZ8DA5DjCFBK3lgwckr0E6RgMzSsyXP2J3q6CvYIQgC\nWH83SmwJ464w3TT0IIOWCY1aBCC2rSNXxJqmPD3nf0N/I0XQXK7dostP4V4Co1tf\nYJv9jSZiWz+cYZlJzJA+9oIeMdWA9yIcevRQLFSYnSXHLdUoQBcNjgDeuZG/EKv0\noK4EdXOZv0XOkgw/7gWcOfxUEmtPCyTAi1gXypKxVYnqOtG7wqde5QNnPZY1EzPc\nzjOaO7f/zMFuKN5J2ohwcGuQ+R9btyZTaUStxL+OeQKBgQDoTfFLsPM9ffW1moA5\nzLKbi1o94AFbxLidtqnl2ywzPzN2GWXYwH+KXEGScjGBs0DAapatimFf0xzMW71b\nQ8uz0CHPBhrawA3l3Ia9w8lPy41afuhWqpwxGUGA034ZYf6kYb93+I0NKS0m49u+\nJCuwVhB4yjy0wFfFRft8qY9jtwKBgQDnVSUu2sUkNkVyCZ081WLcWypWKiTDDXHR\npNgKLQ4rW8tvVM6SWzItPKoxIJN22Dpai/fU2KdWXi1PVCMdSefolJHNzZ7VfDO5\nIkSSbbGeNqwXRK8P7w5niSESs0sKlbJMN1Xi/IB5TQM+pgv1A19pdQtqiUuGpZON\nsJ4EUIAAdQKBgE5JZhYCDhcdCd8nsCrKZy6wKbtMcGjCxQyxcFQ8Josms2sLaB1B\n0jmImbiGr1RsWlf+E8VsKyCl/sCH8ip9kHqKm7ou7oHl00kxpl7xSjiP+pUSy63Z\nVUXeowqNO6PGOJChOGtv4ekbhVHj3DwZ6HdGqcprLUYkw++BhB0g72fFAoGBAJQ8\nz5LyxZmq3V1yI7wz0SH7mWmVn/EN0H3S8E21CXtnWzmAUs8eeUzbrwPEKDrj3KDh\nSHKwUqrZtpc7BzVhgqZbbgM/XCTZbhuYhfB/Mm58AlL2xGelfMmD6hmdotypiJOm\ncfb+byVL4GRo6wianK1rP2GJkUg7Gg6Vuuxw2VVxAoGAPmrPSOo+gptQdumKsFsJ\nv0PZMWLVP/JZnfABHE+k4YtlYaXqd3Y9oQw7UVWJ03kcBt/ifWrgJPOHgS4glr6J\njF7JdcwK3/36gD08vClujnL3a+P2B4paGHlIFsUDCC86cSl69BXZGxiHt0PdFNJ7\nn/s3b3JulrZtz7jOTwo1hVE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloudstorage2@nutribot-411207.iam.gserviceaccount.com",
+  "client_id": "101966107108944398749",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudstorage2%40nutribot-411207.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
