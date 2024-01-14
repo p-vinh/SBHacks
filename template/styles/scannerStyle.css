@@ -107,3 +107,161 @@ hr {
     margin-top: 10px;
     border: 1px solid #9c8546;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Broadway', sans-serif; /* Apply Broadway font to the entire document */
+}
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    transition: transform 2s ease; /* Increase transition duration for a slower effect */
+}
+
+.text-box {
+    position: relative;
+    z-index: 1;
+    color: white; /* Set text color to white for visibility */
+}
+
+.fade-background {
+    position: absolute;
+    top: 50px; /* Adjust top to start below the header */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 50px); /* Adjust height to end above the footer */
+    background: linear-gradient(to bottom, black, rgb(65, 65, 10)); /* Black to yellow gradient */
+    opacity: 0.5; /* Adjust the opacity as needed */
+    z-index: 0;
+}
+
+.header {
+    position: relative;
+    z-index: 2; /* Ensure the header is on top */
+}
+
+.translate-container {
+    transform: translateX(0); /* Initial translation position */
+}
+
+.translate-container.translated {
+    transform: translateX(-100%); /* Move to the left by 100% of the container's width */
+}
+
+.data-container {
+    position: absolute;
+    top: 280px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column; /* Adjusted to column layout */
+    align-items: flex-start; /* Adjusted to move buttons towards the left */
+    justify-content: flex-start; /* Adjusted to move buttons down properly */
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Adjust background color as needed */
+    color: white;
+    font-size: 2em; /* Adjust font size as needed */
+    transform: translateX(100%); /* Move to the right initially, out of view */
+    transition: transform 2s ease; /* Transition for smooth movement */
+}
+
+.data-container.active {
+    transform: translateX(0); /* Move to the left, into view */
+}
+
+.nutrient-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Adjusted to move buttons towards the left */
+    margin-top: 10px; /* Adjusted margin to move buttons down slightly */
+    transition: margin-top 2s ease; /* Add a transition for smooth movement */
+}
+
+.nutrient-button-container {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    position: relative;
+    transition: transform 2s ease, margin-top 2s ease; /* Add transitions for smooth movement */
+}
+
+.nutrient-button {
+    margin: 10px;
+    padding: 15px 30px; /* Increased padding for bigger buttons */
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: 2px solid goldenrod;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.nutrient-button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: scaleX(0);
+    z-index: -1;
+    width: 100%;
+    height: 300%;
+    background-color: goldenrod;
+    transform-origin: left;
+    transition: transform 0.5s ease; /* Add smooth transition effect for transform only */
+}
+
+.nutrient-button.active::before {
+    transform: scaleX(8);
+}
+
+.data-column {
+    margin-left: 10px; /* Adjust margin for spacing between button and data */
+    flex: 1;
+    text-align: center;
+    z-index: -2;
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    font-family: 'Times New Roman', serif; /* Set font to Times New Roman */
+}
+
+button {
+    display: inline-block;
+    margin-left: 20px;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f44336; /* Red */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #d32f2f; /* Darker red */
+  }
+
+  input {
+    margin-left: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+  }
+
+  img {
+    width: 50%;
+    height: 50%;
+  }
+  
+  section {
+    width: 50%;
+  }
