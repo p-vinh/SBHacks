@@ -10,6 +10,8 @@ const { Storage } = require("@google-cloud/storage"); // Added line
 const app = express();
 const port = 3000;
 
+app.use(cors());
+const upload = multer({ dest: 'uploads/'})
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 
@@ -129,6 +131,29 @@ app.post("/add-goals", async (req, res) => {
     }
   });
 });
+
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  //checking if file is recieved
+  if(req.file) {
+    const pythonScriptPath = path.join(__dirname, '..', 'server.py'); // Adjust the path as necessary
+    const filePath = path.join(__dirname, req.file.path);
+
+    exec(`python "${pythonScriptPath}" "${filePath}"`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing Python script: ${error}`);
+        return res.status(500).json({ success: false, message: 'Error processing image'});
+      }
+      if (stderr) {
+        console.error(`Python script stderr: ${stderr}`);
+      }
+      res.json(JSON.parse(stdout));
+    });
+  } else {
+    res.status(400).json({ success: false, message: 'No file upload' });
+  }
+});
+
 
 // Handle form submission for login
 app.post("/login", (req, res) => {
