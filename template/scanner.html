@@ -1,65 +1,316 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Broadway&display=swap"
-    />
-    <meta charset="utf-8" />
-    <title>Scanner</title>
-    <link rel="stylesheet" href="styles/scannerStyle.css" />
-  </head>
 
-  <body>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Broadway', sans-serif; /* Apply Broadway font to the entire document */
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            transition: transform 2s ease; /* Increase transition duration for a slower effect */
+        }
+
+        .text-box {
+            position: relative;
+            z-index: 1;
+            color: white; /* Set text color to white for visibility */
+        }
+
+        .fade-background {
+            position: absolute;
+            top: 50px; /* Adjust top to start below the header */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 50px); /* Adjust height to end above the footer */
+            background: linear-gradient(to bottom, black, rgb(65, 65, 10)); /* Black to yellow gradient */
+            opacity: 0.5; /* Adjust the opacity as needed */
+            z-index: 0;
+        }
+
+        .header {
+            position: relative;
+            z-index: 2; /* Ensure the header is on top */
+        }
+
+        .translate-container {
+            transform: translateX(0); /* Initial translation position */
+        }
+
+        .translate-container.translated {
+            transform: translateX(-100%); /* Move to the left by 100% of the container's width */
+        }
+
+        .data-container {
+            position: absolute;
+            top: 280px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 50px);
+            display: flex;
+            flex-direction: column; /* Adjusted to column layout */
+            align-items: flex-start; /* Adjusted to move buttons towards the left */
+            justify-content: flex-start; /* Adjusted to move buttons down properly */
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust background color as needed */
+            color: white;
+            font-size: 2em; /* Adjust font size as needed */
+            transform: translateX(100%); /* Move to the right initially, out of view */
+            transition: transform 2s ease; /* Transition for smooth movement */
+        }
+
+        .data-container.active {
+            transform: translateX(0); /* Move to the left, into view */
+        }
+
+        .nutrient-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Adjusted to move buttons towards the left */
+            margin-top: 10px; /* Adjusted margin to move buttons down slightly */
+            transition: margin-top 2s ease; /* Add a transition for smooth movement */
+        }
+
+        .nutrient-button-container {
+            display: flex;
+            align-items: center; /* Center items vertically */
+            position: relative;
+            transition: transform 2s ease, margin-top 2s ease; /* Add transitions for smooth movement */
+        }
+
+        .nutrient-button {
+            margin: 10px;
+            padding: 15px 30px; /* Increased padding for bigger buttons */
+            cursor: pointer;
+            background-color: black;
+            color: white;
+            border: 2px solid goldenrod;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+
+        .nutrient-button::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: scaleX(0);
+            z-index: -1;
+            width: 100%;
+            height: 300%;
+            background-color: goldenrod;
+            transform-origin: left;
+            transition: transform 0.5s ease; /* Add smooth transition effect for transform only */
+        }
+
+        .nutrient-button.active::before {
+            transform: scaleX(8);
+        }
+
+        .data-column {
+            margin-left: 10px; /* Adjust margin for spacing between button and data */
+            flex: 1;
+            text-align: center;
+            z-index: -2;
+            white-space: nowrap; /* Prevent text from wrapping to the next line */
+            font-family: 'Times New Roman', serif; /* Set font to Times New Roman */
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Broadway&display=swap"> <!-- Import Broadway font from Google Fonts -->
+    <meta charset="utf-8">
+    <title>Scanner</title>
+    <link rel="stylesheet" href="styles/scannerStyle.css">
+</head>
+
+<body>
     <section class="header">
-      <nav>
-        <a href="landing-page.html"><img src="img/NutriBotLogo.png" /></a>
-        <div class="nav-links">
-          <ul>
-            <li><a href="profile.html">PROFILE</a></li>
-            <li><a href="scanner.html">SCAN</a></li>
-            <li><a href="login.html">LOG IN</a></li>
-            <li><a href="createAccount.html">SIGN UP</a></li>
-          </ul>
-        </div>
-      </nav>
-      <hr />
+        <nav>
+            <a href="landing-page.html"><img src="img/NutriBotLogo.png"></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="profile.html">PROFILE</a></li>
+                    <li><a href="scanner.html">SCAN</a></li>
+                    <li><a href="login.html">LOG IN</a></li>
+                    <li><a href="createAccount.html">SIGN UP</a></li>
+                </ul>
+            </div>
+        </nav>
+        <hr>
     </section>
 
     <!-- Original container -->
     <div class="container translate-container">
-      <div class="text-box">
-        <h1 style="font-family: 'Broadway', sans-serif">SCANNER</h1>
-        <p style="font-family: 'Broadway', sans-serif">
-          Upload a file to start dominating your health.
-        </p>
-        <input type="file" id="fileInput" style="display: none;" />
-        <button
-          class="scanner__button"
-          id="button"
-          onclick="document.getElementById('fileInput').click()"
-        >
-          Upload
-        </button>
-        <input
-          type="text"
-          id="barcodeInput"
-          placeholder="Enter barcode"
-        />
-        <button class="scanner__button" id="button" onclick="translateContainer()">Upload</button>
-        <section id="uploaded-images"></section>
-      </div>
+        <div class="text-box">
+            <h1 style="font-family: 'Broadway', sans-serif;">SCANNER</h1>
+            <p style="font-family: 'Broadway', sans-serif;">Upload a file to start dominating your health.</p>
+            <button class="scanner__button" id="button" onclick="translateContainer()">Upload</button>
+            <div class="video-embed">
+                <video id="vid"></video>
+            </div>
+        </div>
     </div>
 
     <!-- New data container -->
     <div class="data-container">
-      <div class="nutrient-buttons" id="nutrientButtons"></div>
-      <div class="nutrient-data">
-        <ul class="data-list" id="nutrientsList"></ul>
-      </div>
+        <div class="nutrient-buttons" id="nutrientButtons"></div>
+        <div class="nutrient-data">
+            <ul class="data-list" id="nutrientsList"></ul>
+        </div>
     </div>
 
-    <script src="scripts/scanner.js"></script>
-  </body>
+    <script src="../static/scanner.js"></script>
+    <script>
+        let activeButton = null;
+
+        function translateContainer() {
+            const container = document.querySelector('.container');
+            const dataContainer = document.querySelector('.data-container');
+            const nutrientButtonsContainer = document.getElementById('nutrientButtons');
+            const nutrientsList = document.getElementById('nutrientsList');
+
+            container.classList.add('translated');
+            dataContainer.classList.add('active');
+
+            // Clear existing buttons and list items
+            nutrientButtonsContainer.innerHTML = '';
+            nutrientsList.innerHTML = '';
+
+            // Get the data from the nutrients array (replace this with your actual data)
+            const nutrients = [
+                ['Vitamin A', '10 grams', '14% Daily Intake', 'Saturated Fats: Saturated fats are characterized by their solid state at room temperature and are considered an unhealthy form of dietary fat. Predominantly sourced from animal products such as meat and dairy, common examples include beef, lamb, pork, and butter.Scientific evidence supports the association of saturated fat consumption with arterial clogging, thereby amplifying the risk of heart attacks and heart disease. It is advisable to limit saturated fat intake to approximately 5 percent of ones daily calorie allowance as a precautionary measure for maintaining cardiovascular health.'],
+                ['Vitamin B', '20 grams', '13% Daily Intake', 'Information B'],
+                ['Protein', '12 grams', '12% Daily Intake', 'Information C'],
+                ['Sugars', '37 grams', '10% Daily Intake', 'Information D'],
+                ['Zinc', '42 grams', '15% Daily Intake', 'Information E'],
+                ['Vitamin D', '12 grams', '25% Daily Intake', 'Information A'],
+                ['Potassium', '10 grams', '50% Daily Intake', 'Information A']
+                // Add more nutrients as needed
+            ];
+
+            // Create containers for each button and its corresponding data
+            nutrients.forEach((nutrient, index) => {
+                const buttonContainer = document.createElement('div');
+                buttonContainer.classList.add('nutrient-button-container');
+
+                const button = document.createElement('button');
+                button.classList.add('nutrient-button');
+                button.textContent = nutrient[0]; // Displaying the nutrient name on the button
+
+                // Create a div for the second column data
+                const secondColumnDiv = document.createElement('div');
+                secondColumnDiv.classList.add('data-column');
+                secondColumnDiv.textContent = nutrient[1];
+
+                // Create a div for the third column data
+                const thirdColumnDiv = document.createElement('div');
+                thirdColumnDiv.classList.add('data-column');
+                thirdColumnDiv.textContent = nutrient[2];
+
+                // Append both button and data columns to the container
+                buttonContainer.appendChild(button);
+                buttonContainer.appendChild(secondColumnDiv);
+                buttonContainer.appendChild(thirdColumnDiv);
+
+                // Attach click event to show data for the respective nutrient
+                button.addEventListener('click', () => {
+                    setActiveButton(button);
+                    displayNutrientData(nutrient, index);
+                });
+
+                nutrientButtonsContainer.appendChild(buttonContainer);
+            });
+        }
+
+        function setActiveButton(button) {
+            if (activeButton) {
+                activeButton.classList.remove('active');
+            }
+            activeButton = button;
+            activeButton.classList.add('active');
+
+            // Reset margins for all buttons
+            const nutrientButtons = document.querySelectorAll('.nutrient-button-container');
+            nutrientButtons.forEach(buttonContainer => {
+                buttonContainer.style.marginTop = '10px'; // Reset margin to default
+                buttonContainer.style.transform = 'translateY(0)'; // Reset transform to default
+            });
+        }
+
+        
+    // Calculate the position based on the active button
+    
+    function displayNutrientData(nutrient, index) {
+    // Remove existing textAboveBar element
+    const existingTextAboveBar = document.querySelector('.text-above-bar');
+    if (existingTextAboveBar) {
+        existingTextAboveBar.remove();
+    }
+
+    const nutrientsList = document.getElementById('nutrientsList');
+    nutrientsList.innerHTML = ''; // Clear existing list items
+
+    const listItem = document.createElement('li');
+    listItem.classList.add('data-list-item');
+
+    // Display only the fourth index of the selected nutrient
+    const columnDiv = document.createElement('div');
+    columnDiv.classList.add('data-column');
+    columnDiv.textContent = nutrient[3];
+
+    nutrientsList.appendChild(listItem);
+
+    // Get the active button element
+    const activeButton = document.querySelector('.nutrient-button.active');
+
+    // Check if the active button exists
+    if (activeButton) {
+        // Get the fourth column value of the current nutrient
+        const nutrientValue = nutrient[3];
+
+        // Wait for a duration (e.g., 1000 milliseconds) before setting the position
+        setTimeout(() => {
+            // Set the position based on the active button
+            const barRect = document.querySelector('.data-container').getBoundingClientRect();
+            const activeButtonRect = activeButton.getBoundingClientRect();
+
+            // Create or get the textAboveBar element
+            let textAboveBar = document.createElement('div');
+            textAboveBar.classList.add('data-column', 'text-above-bar');
+            textAboveBar.style.pointerEvents = 'none'; // Make the text non-interactive
+            textAboveBar.style.whiteSpace = 'normal'; // Allow text to wrap
+            textAboveBar.style.maxWidth = '800px'; // Set a specific width for wrapping
+            textAboveBar.style.fontSize = '15px'; // Set the text size
+            textAboveBar.style.fontFamily = 'Arial, sans-serif'; // Set the font family
+
+            // Set the position and z-index relative to the active button
+            textAboveBar.style.position = 'absolute';
+            textAboveBar.style.top = `${activeButtonRect.top - barRect.top+5}px`;
+            textAboveBar.style.left = `${activeButtonRect.right - barRect.left}px`;
+            textAboveBar.style.zIndex = '1'; // Set z-index to bring it to the foreground
+            textAboveBar.textContent = nutrientValue; // Update the content with the fourth column of the nutrient button
+
+            // Append the textAboveBar to the data container
+            document.querySelector('.data-container').appendChild(textAboveBar);
+        }, 1500); // Adjust the duration as needed
+    }
+
+    // Shift every button below the active button down by 30 pixels
+    const nutrientButtons = document.querySelectorAll('.nutrient-button-container');
+    nutrientButtons.forEach((buttonContainer, i) => {
+        if (i > index) {
+            buttonContainer.style.transform = 'translateY(70px)';
+        }
+    });
+}
+    </script>
+</body>
+
 </html>
