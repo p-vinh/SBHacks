@@ -2,7 +2,7 @@
 import cv2
 from pyzbar.pyzbar import decode
 
-# Make one method to decode the barcode 
+# Make one method to decode the barcode b
 def BarcodeReader(image):
     
     barcode_number = ''

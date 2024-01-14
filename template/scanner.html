@@ -148,14 +148,47 @@
 
     <!-- Original container -->
     <div class="container translate-container">
-        <div class="text-box">
-            <h1 style="font-family: 'Broadway', sans-serif;">SCANNER</h1>
-            <p style="font-family: 'Broadway', sans-serif;">Upload a file to start dominating your health.</p>
-            <button class="scanner__button" id="button" onclick="translateContainer()">Upload</button>
-            <div class="video-embed">
-                <video id="vid"></video>
-            </div>
-        </div>
+      <div class="text-box">
+        <h1 style="font-family: 'Broadway', sans-serif">SCANNER</h1>
+        <p style="font-family: 'Broadway', sans-serif">
+          Upload a file to start dominating your health.
+        </p>
+        <input type="file" id="fileInput" style="display: none;" onchange="uploadFile()" />
+        <button
+          class="scanner__button"
+          id="button"
+          onclick="document.getElementById('fileInput').click()"
+        >
+          Upload
+        </button>
+
+        <script>
+          function uploadFile() {
+              var fileInput = document.getElementById('fileInput');
+              var file = fileInput.files[0];
+              var formData = new FormData();
+              formData.append('file', file);
+          
+              fetch('http://localhost:3000/upload', {
+                  method: 'POST',
+                  body: formData
+              })
+              .then(response => response.json())
+              .then(data => {
+                  // Handle the response data with the nutrition info here
+                  console.log(data);
+              })
+              .catch(error => console.error('Error:', error));
+          }
+          </script>
+        <input
+          type="text"
+          id="barcodeInput"
+          placeholder="Enter barcode"
+        />
+        <button class="scanner__button" id="button" onclick="translateContainer()">Upload</button>
+        <section id="uploaded-images"></section>
+      </div>
     </div>
 
     <!-- New data container -->
