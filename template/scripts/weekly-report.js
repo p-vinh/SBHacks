@@ -1,11 +1,7 @@
-const meals = [
-    { name: 'Breakfast', calories: 500 },
-    { name: 'Lunch', calories: 700 },
-    { name: 'Dinner', calories: 600 },
-  ];
+
   
-  const totalCalories = meals.reduce((total, meal) => total + meal.calories, 0);
-  const totalMeals = meals.length;
+  const totalCalories = data.current.calories;
+  const totalMeals = data.meals.length;
   const avgIntakeCalories = totalCalories / totalMeals;
   
   document.getElementById('total-calories').innerText = totalCalories;

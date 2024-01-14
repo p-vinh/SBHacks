@@ -1,23 +1,21 @@
+let data = null;
 window.onload = function () {
-  document.getElementById("profileLink").onclick = updateProfile();
+  document.getElementById("profileLink").onclick = updateProfile(data);
 };
+
+
+fetch('/endpoint')
+  .then(response => response.json())
+  .then(responseData => {
+    console.log(responseData.message);
+    data = responseData.message;
+  })
+  .catch(error => console.error('Error:', error));
 
 function importFromDB() {
   console.log("Retrieving data from database...");
-  return JSON.stringify({
-    name: "John Doe",
-    email: "yourexample@gmail.com",
-    "total-carbs": 1205,
-    "total-protein": 10,
-    "total-fat": 30,
-    "total-calories": 100,
-    "total-sodium": 1,
-    "goal-carbs": 2000,
-    "goal-protein": 50,
-    "goal-fat": 50,
-    "goal-calories": 2000,
-    "goal-sodium": 20,
-  });
+  updateProfile(data);
+  return data;
 }
 
 function setProgress(percent, goal) {
@@ -34,45 +32,39 @@ function setProgress(percent, goal) {
 }
 
 function updateProfile(data = null) {
-  let profile; // Get API call here
-  if (data == null) {
-    // Get API call here
-    profile = JSON.parse(importFromDB());
-  } else {
-    profile = JSON.parse(data);
-  }
+  let profile = JSON.parse(data);
   console.log(profile);
   if (profile == null) {
     return;
   }
 
-  document.getElementById("name").innerHTML = "Welcome " + profile.name;
-  let total = profile["total-calories"];
-  let goal = profile["goal-calories"];
+  document.getElementById("name").innerHTML = "Welcome " + profile.username;
+  let total = profile.current.calories;
+  let goal = profile.goals.calorieGoal;
   let percent = Math.round((total / goal) * 100);
   document.getElementById("calories-counter").innerHTML = total + "/" + goal;
   setProgress(percent, ".progress-ring_circle-calories");
 
-  total = profile["total-carbs"];
-  goal = profile["goal-carbs"];
+  total = profile.current.carbs;
+  goal = profile.goals.carbGoal;
   percent = Math.round((total / goal) * 100);
   document.getElementById("carbs-counter").innerHTML = total + "/" + goal;
   setProgress(percent, ".progress-ring_circle-carbs");
 
-  total = profile["total-fat"];
-  goal = profile["goal-fat"];
+  total = profile.current.fats;
+  goal = profile.goals.fatGoal;
   percent = Math.round((total / goal) * 100);
   document.getElementById("fat-counter").innerHTML = total + "/" + goal;
   setProgress(percent, ".progress-ring_circle-fat");
 
-  total = profile["total-protein"];
-  goal = profile["goal-protein"];
+  total = profile.current.proteins;
+  goal = profile.goals.proteinGoal;
   percent = Math.round((total / goal) * 100);
   document.getElementById("protein-counter").innerHTML = total + "/" + goal;
   setProgress(percent, ".progress-ring_circle-protein");
 
-  total = profile["total-sodium"];
-  goal = profile["goal-sodium"];
+  total = profile.current.sodiums;
+  goal = profile.goals.sodiumGoal;
   percent = Math.round((total / goal) * 100);
   document.getElementById("sodium-counter").innerHTML = total + "/" + goal;
   setProgress(percent, ".progress-ring_circle-sodium");
@@ -81,25 +73,17 @@ function updateProfile(data = null) {
 var acc = document.getElementsByClassName("accordion-button");
 
 for (var i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
+  acc[i].addEventListener("click", function () {
     this.classList.toggle("active");
     var panel = this.nextElementSibling;
     if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
     } else {
       panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
+    }
   });
 }
 
-document.addEventListener('click', function(event) {
-  var isClickInside = document.querySelector('.accordion-container').contains(event.target);
-
-  if (!isClickInside) {
-    var accordionContent = document.querySelector('.accordion-content');
-    accordionContent.style.maxHeight = "0px";
-  }
-});
 
 var popup = document.getElementById("popup-window");
 var btn = document.querySelector(".change-button");
@@ -135,14 +119,14 @@ function changeGoals() {
   let sodium = document.getElementById("target-sodium").value
     ? document.getElementById("target-sodium").value
     : 0;
-  let old_data = JSON.parse(importFromDB());
+  let old_data = importFromDB();
   let data = JSON.stringify({
-    name: old_data["name"],
-    "total-carbs": old_data["total-carbs"],
-    "total-protein": old_data["total-protein"],
-    "total-fat": old_data["total-fat"],
-    "total-calories": old_data["total-calories"],
-    "total-sodium": old_data["total-sodium"],
+    name: old_data.username,
+    "total-carbs": old_data.current.carbs,
+    "total-protein": old_data.current.proteins,
+    "total-fat": old_data.current.fats,
+    "total-calories": old_data.current.calories,
+    "total-sodium": old_data.current.sodiums,
     "goal-carbs": carbs,
     "goal-protein": protein,
     "goal-fat": fat,

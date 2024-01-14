@@ -127,15 +127,18 @@
             class="form__input"
             placeholder="Protein Goal"
           />
-          <div class="form__input-group">
-            <input
-              type="text"
-              id="sodiumGoal"
-              class="form__input"
-              placeholder="Sodium Goal"
-            />
           <div class="form__input-error-message"></div>
-        
+        </div>
+        <div class="form__input-group">
+          <input
+            type="text"
+            id="sodiumGoal"
+            class="form__input"
+            placeholder="Sodium Goal"
+          />
+          <div class="form__input-error-message"></div>
+        </div>
+
         <button class="form__button" type="submit" id="continueButton">
           Continue
         </button>
@@ -150,86 +153,86 @@
         window.history.back();
       };
 
-      document.getElementById("createAccount").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent the default form submission
+      document
+        .getElementById("createAccount")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
 
-        const username = document.getElementById("signupUsername").value;
-        const email = document.getElementById("signupEmail").value;
-        const password = document.getElementById("signupPassword").value;
-        const confirmPassword = document.getElementById("signupPasswordConfirm").value;
+          const username = document.getElementById("signupUsername").value;
+          const email = document.getElementById("signupEmail").value;
+          const password = document.getElementById("signupPassword").value;
+          const confirmPassword = document.getElementById(
+            "signupPasswordConfirm"
+          ).value;
 
-        document.getElementById("step1").style.display = "none";
-        document.getElementById("step2").style.display = "block";
+          document.getElementById("step1").style.display = "none";
+          document.getElementById("step2").style.display = "block";
 
-        if (password !== confirmPassword) {
-          alert("Passwords do not match!");
-          return;
-        }
+          if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
 
-        // Send data to the server
-        fetch("/create-account", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: username,
-            email: email,
-            password: password,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (!data.success) {
-              alert(data.message); // Show error message
-            }
+          // Send data to the server
+          fetch("/create-account", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: username,
+              email: email,
+              password: password,
+            }),
           })
-          .catch((error) => console.error("Error:", error));
-      });
+            .then((response) => response.json())
+            .then((data) => {
+              if (!data.success) {
+                alert(data.message); // Show error message
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        });
 
-      document.getElementById("continueButton").addEventListener("click", function (event) {
-        event.preventDefault();
-        window.location.href = "profile.html";
-      });
+      document
+        .getElementById("continueButton")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          const username = document.getElementById("signupUsername").value;
+          const calorieGoal = document.getElementById("calorieGoal").value;
+          const fatGoal = document.getElementById("fatGoal").value;
+          const carbGoal = document.getElementById("carbGoal").value;
+          const proteinGoal = document.getElementById("proteinGoal").value;
+          const sodiumGoal = document.getElementById("sodiumGoal").value;
 
-      // Function to add goals after the initial user creation
-      document.getElementById("addGoalsButton").addEventListener("click", function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById("signupUsername").value;
-        const calorieGoal = document.getElementById("calorieGoal").value;
-        const fatGoal = document.getElementById("fatGoal").value;
-        const carbGoal = document.getElementById("carbGoal").value;
-        const proteinGoal = document.getElementById("proteinGoal").value;
-        const sodiumGoal = document.getElementById("sodiumGoal").value;
-
-        // Make a request to add goals
-        fetch("/add-goals", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: username,
-            calorieGoal: calorieGoal,
-            fatGoal: fatGoal,
-            carbGoal: carbGoal,
-            proteinGoal: proteinGoal,
-            sodiumGoal: sodiumGoal
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              // Goals appended successfully, you can handle the response data as needed
-              console.log("Goals appended successfully:", data.goals);
-            } else {
-              // Error appending goals, handle the error message
-              console.error("Error appending goals:", data.message);
-            }
+          // Make a request to add goals
+          fetch("/add-goals", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: username,
+              calorieGoal: calorieGoal,
+              fatGoal: fatGoal,
+              carbGoal: carbGoal,
+              proteinGoal: proteinGoal,
+              sodiumGoal: sodiumGoal,
+            }),
           })
-          .catch((error) => console.error("Error:", error));
-      });
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                // Goals appended successfully, you can handle the response data as needed
+                console.log("Goals appended successfully:", data.goals);
+              } else {
+                // Error appending goals, handle the error message
+                console.error("Error appending goals:", data.message);
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+          window.location.href = "profile.html";
+        });
     </script>
   </body>
 </html>

@@ -1,37 +1,50 @@
 <!DOCTYPE html>
-<head> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>Welcome Page</title>
-    <link rel="stylesheet" href="styles/welcomeStyle.css">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <title>Welcome Page</title>
+  <link rel="stylesheet" href="styles/welcomeStyle.css" />
 </head>
-<body> 
-    <section class="header">
+<body>
+  <section class="header">
     <nav>
-        <a href="landing-page.html"><img src="img/NutriBotLogo.png"></a>
-        <div class="nav-links">
-            <ul>
-                <li><a href="profile.html">PROFILE</a></li>
-                <li><a href="scanner.html">SCAN</a></li>
-                <li><a href="http://localhost:3000/login.html">LOG IN</a></li>
-                <li><a href="http://localhost:3000/createAccount.html">SIGN UP</a></li>
-            </ul>
-        </div>
+      <a href="landing-page.html"><img src="img/NutriBotLogo.png" /></a>
+      <div class="nav-links">
+        <ul>
+          <li><a href="profile.html">PROFILE</a></li>
+          <li><a href="scanner.html">SCAN</a></li>
+          <li><a href="http://localhost:3000/login.html">LOG IN</a></li>
+          <li>
+            <a href="http://localhost:3000/createAccount.html">SIGN UP</a>
+          </li>
+        </ul>
+      </div>
     </nav>
-<hr>
-<div class="text-box">
-    <h1>Welcome to NutriBot</h1>
-    <p>
-        An online calorie tracker with a chat bot that helps you simplify your fitness journey from meals 
-        to exploring different exercises to optimize your training! 
-    </p>
-    <a href="scanner.html" class="hero-btn">Start Scanning Here</a>
-</div>
-</section>
+    <hr />
+    <div class="text-box">
+      <h1>Welcome to NutriBot</h1>
+      <p>
+        An online calorie tracker with a chat bot that helps you simplify your
+        fitness journey from meals to exploring different exercises to optimize
+        your training!
+      </p>
+      <a href="scanner.html" class="hero-btn">Start Scanning Here</a>
+    </div>
+    <script>
+      fetch("/run-python")
+        .then((response) => response.text())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    </script>
+  </section>
 
-<!--About us-->
+  <!--About us-->
 
-<!-- <section class="Creators"> 
+  <!-- <section class="Creators"> 
     <h1>About the Creators</h1>
     <p>Test text.</p>
 
