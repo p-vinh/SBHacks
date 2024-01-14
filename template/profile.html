@@ -9,9 +9,7 @@
   <body>
     <section class="header">
       <nav>
-        <a href="landing-page.html"
-          ><img src="img/NutriBotLogo.png"
-        /></a>
+        <a href="landing-page.html"><img src="img/NutriBotLogo.png" /></a>
         <div class="nav-links">
           <ul>
             <li><a href="profile.html" id="profileLink">PROFILE</a></li>
@@ -42,13 +40,13 @@
                 cy="125"
               ></circle>
               <circle
-              stroke="white"
-              stroke-width="2"
-              fill="transparent"
-              r="124"
-              cx="125"
-              cy="125"
-            ></circle>
+                stroke="white"
+                stroke-width="2"
+                fill="transparent"
+                r="124"
+                cx="125"
+                cy="125"
+              ></circle>
               <text
                 id="calories-counter"
                 x="50%"
@@ -111,13 +109,13 @@
                   cy="60"
                 ></circle>
                 <circle
-                stroke="white"
-                stroke-width="2"
-                fill="transparent"
-                r="55"
-                cx="60"
-                cy="60"
-              ></circle>
+                  stroke="white"
+                  stroke-width="2"
+                  fill="transparent"
+                  r="55"
+                  cx="60"
+                  cy="60"
+                ></circle>
                 <text
                   id="carbs-counter"
                   x="50%"
@@ -145,13 +143,13 @@
                   cy="60"
                 ></circle>
                 <circle
-                stroke="white"
-                stroke-width="2"
-                fill="transparent"
-                r="55"
-                cx="60"
-                cy="60"
-              ></circle>
+                  stroke="white"
+                  stroke-width="2"
+                  fill="transparent"
+                  r="55"
+                  cx="60"
+                  cy="60"
+                ></circle>
                 <text
                   id="protein-counter"
                   x="50%"
@@ -166,67 +164,104 @@
               </svg>
             </div>
             <div class="item-container">
-                <!-- Title "Sodium" -->
-                <div class="nutritional-title">Sodium</div>
-                <svg class="progress-ring" width="120" height="120">
-                  <circle
-                    class="progress-ring_circle-sodium"
-                    stroke="gold"
-                    stroke-width="6"
-                    fill="transparent"
-                    r="52"
-                    cx="60"
-                    cy="60"
-                  ></circle>
-                  <circle
-                    stroke="white"
-                    stroke-width="2"
-                    fill="transparent"
-                    r="55"
-                    cx="60"
-                    cy="60"
-                  ></circle>
-                  <text
-                    id="sodium-counter"
-                    x="50%"
-                    y="50%"
-                    text-anchor="middle"
-                    dominant-baseline="middle"
-                    fill="white"
-                    font-size="20px"
-                  >
-                    -- / --
-                  </text>
-                </svg>
-              </div>
+              <!-- Title "Sodium" -->
+              <div class="nutritional-title">Sodium</div>
+              <svg class="progress-ring" width="120" height="120">
+                <circle
+                  class="progress-ring_circle-sodium"
+                  stroke="gold"
+                  stroke-width="6"
+                  fill="transparent"
+                  r="52"
+                  cx="60"
+                  cy="60"
+                ></circle>
+                <circle
+                  stroke="white"
+                  stroke-width="2"
+                  fill="transparent"
+                  r="55"
+                  cx="60"
+                  cy="60"
+                ></circle>
+                <text
+                  id="sodium-counter"
+                  x="50%"
+                  y="50%"
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                  fill="white"
+                  font-size="20px"
+                >
+                  -- / --
+                </text>
+              </svg>
+            </div>
           </div>
           <!-- Add more titles and circles for other nutritional facts as needed -->
         </div>
         <div>
-            <button class="change-button" id="change-button">Change Goals</button>
-            <div id="popup-window" class="popup-window">
-                <div class="popup-content">
-                  <span class="close">&times;</span>
-                  <h3>Change Goals</h3>
-                  <hr>
-                  <br>
-                <p> Change Target Calories</p>
-                <input type="text" id="target-calories" placeholder="Target Calories">
-                <p> Change Target Fat</p>
-                <input type="text" id="target-fat" placeholder="Target Fat">
-                <p> Change Target Carbs</p>
-                <input type="text" id="target-carbs" placeholder="Target Carbs">
-                <p> Change Target Protein</p>
-                <input type="text" id="target-protein" placeholder="Target Protein">
-                <p> Change Target Sodium</p>
-                <input type="text" id="target-sodium" placeholder="Target Sodium">
-                <br>
-                <button class="change-button" id="submit-button" onclick="changeGoals()">Submit</button>
-                </div>
-              </div>
+          <button class="change-button" id="change-button">Change Goals</button>
+          <div id="popup-window" class="popup-window">
+            <div class="popup-content">
+              <span class="close">&times;</span>
+              <h3>Change Goals</h3>
+              <hr />
+              <br />
+              <p>Change Target Calories</p>
+              <input
+                type="text"
+                id="target-calories"
+                placeholder="Target Calories"
+              />
+              <p>Change Target Fat</p>
+              <input type="text" id="target-fat" placeholder="Target Fat" />
+              <p>Change Target Carbs</p>
+              <input type="text" id="target-carbs" placeholder="Target Carbs" />
+              <p>Change Target Protein</p>
+              <input
+                type="text"
+                id="target-protein"
+                placeholder="Target Protein"
+              />
+              <p>Change Target Sodium</p>
+              <input
+                type="text"
+                id="target-sodium"
+                placeholder="Target Sodium"
+              />
+              <br />
+              <button
+                class="change-button"
+                id="submit-button"
+                onclick="changeGoals()"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
+        <div class="weekly-report">
+          <h2>Weekly Report</h2>
+          <br />
+          <div class="report-item">
+            <h3>Total Calories Consumed</h3>
+            <p id="total-calories">0</p>
+          </div>
+          <div class="report-item">
+            <h3>Total Meals</h3>
+            <p id="total-meals">0</p>
+          </div>
+          <div class="report-item">
+            <h3>Average Intake of Calories</h3>
+            <p id="avg-intake-calories">0</p>
+          </div>
+        </div>
+        <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     </div>
+
     <script src="scripts/import-profile.js"></script>
+    <script src="scripts/weekly-report.js"></script>
   </body>
 </html>
