@@ -182,54 +182,6 @@
           Upload
         </button>
 
-        <script>
-          /*
-          function uploadFile() {
-            var fileInput = document.getElementById("fileInput");
-            var file = fileInput.files[0];
-            var formData = new FormData();
-            formData.append("file", file);
-
-            var previewImage = document.createElement("img");
-            previewImage.src = URL.createObjectURL(file);
-
-            var uploadedImages = document.getElementById("uploaded-images");
-            uploadedImages.appendChild(previewImage);
-
-            fetch("http://localhost:3000/upload", {
-              method: "POST",
-              body: formData,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                // Handle the response data with the nutrition info here
-                
-                console.log(data);
-              })
-              .catch((error) => console.error("Error:", error));
-          }
-          
-          function barcodeLookup() {
-            var barcodeInput = document.getElementById("barcodeInput");
-            var barcode = barcodeInput.value;
-
-            fetch("http://localhost:3000/upload", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ barcode: barcode }),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                // Handle the response data here
-                console.log(data);
-              })
-              .catch((error) => console.error("Error:", error));
-          }
-          */
-        </script>
-
         <input
           type="text"
           id="barcodeInput"
@@ -310,10 +262,12 @@
             let temp = [];
             Object.keys(data.macronutrients).forEach((macronutrient) => {
               const updatedData = {
-                [macronutrient]: data.macronutrients[macronutrient],
+                [macronutrient.toLowerCase()] : data.macronutrients[macronutrient],
               };
               temp.push(updatedData);
             });
+
+            console.log(temp[3].fat[0]);
             fetch("/update-profile", {
               method: "POST",
               headers: {
@@ -321,11 +275,11 @@
               },
               body: JSON.stringify({
                 username: "vinh",
-                calorieGoal: temp.calories,
-                fatGoal: temp[0].fat,
-                carbGoal: temp[0].carbs,
-                proteinGoal: temp[0].protein,
-                sodiumGoal: temp[0].sodium,
+                calories: temp[0].calories,
+                fats: temp[3].fat[0],
+                carbs: temp[1].carbs[0],
+                proteins: temp[2].protein[0],
+                sodiums: temp[4].sodium[0],
               }),
             })
               .then((response) => response.json())
@@ -444,7 +398,7 @@
             textAboveBar.classList.add("data-column", "text-above-bar");
             textAboveBar.style.pointerEvents = "none"; // Make the text non-interactive
             textAboveBar.style.whiteSpace = "normal"; // Allow text to wrap
-            textAboveBar.style.maxWidth = "800px"; // Set a specific width for wrapping
+            textAboveBar.style.maxWidth = "500px"; // Set a specific width for wrapping
             textAboveBar.style.fontSize = "15px"; // Set the text size
             textAboveBar.style.fontFamily = "Arial, sans-serif"; // Set the font family
 

@@ -151,7 +151,6 @@
       document.getElementById("backButton").onclick = function () {
         window.history.back();
       };
-
       document
         .getElementById("createAccount")
         .addEventListener("submit", function (event) {
@@ -219,6 +218,7 @@
         })
           .then((response) => response.json())
           .then((data) => {
+            console.log(data);
             if (data.success) {
               // Goals appended successfully, you can handle the response data as needed
               console.log("Goals appended successfully:", data.goals);

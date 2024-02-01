@@ -79,7 +79,7 @@ app.post("/add-goals", async (req, res) => {
       res.json({ success: false, message: "Error appending goals" });
     } else {
       const userData = JSON.parse(data);
-
+      
       // Append goals to the existing user data
       userData.goals = {
         calorieGoal,
@@ -200,14 +200,16 @@ app.post("/update-profile", (req, res) => {
       return;
     }
     
-    const userData = JSON.parse(data);
-    userData.calories += calories;
-    userData.fats += fats;
-    userData.carbs += carbs;
-    userData.proteins += proteins;
-    userData.sodiums += sodiums;
+    let userData = JSON.parse(data);
+    console.log(userData);
+    userData.current.calories += calories;
+    userData.current.fats += fats;
+    userData.current.carbs += carbs;
+    userData.current.proteins += proteins;
+    userData.current.sodiums += sodiums;
 
-    const updatedData = JSON.stringify(userData, null, 2);
+    const updatedData = JSON.stringify(userData);
+    
 
     fs.writeFile(userFilePath, updatedData, "utf-8", (err) => {
       if (err) {

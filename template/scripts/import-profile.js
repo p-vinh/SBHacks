@@ -2,6 +2,15 @@ let data = null;
 let loggedInUser = "";
 
 window.onload = function () {
+  fetch("/endpoint")
+    .then((response) => response.json())
+    .then((responseData) => {
+      data = responseData.message;
+      console.log(data);
+      loggedInUser = data.username;
+      updateProfile(data);
+    })
+    .catch((error) => console.error("Error:", error));
   document.getElementById("profileLink").onclick = updateProfile(data);
 };
 
@@ -126,19 +135,19 @@ function changeGoals() {
   let data = JSON.stringify({
     username: old_data.username,
     current: {
-      "carbs": old_data.current.carbs,
-      "proteins": old_data.current.proteins,
-      "fats": old_data.current.fats,
-      "calories": old_data.current.calories,
-      "sodiums": old_data.current.sodiums,
+      carbs: old_data.current.carbs,
+      proteins: old_data.current.proteins,
+      fats: old_data.current.fats,
+      calories: old_data.current.calories,
+      sodiums: old_data.current.sodiums,
     },
     goals: {
-      "carbGoal": carbs,
-      "proteinGoal": protein,
-      "fatGoal": fat,
-      "calorieGoal": calories,
-      "sodiumGoal": sodium,
-    }
+      carbGoal: carbs,
+      proteinGoal: protein,
+      fatGoal: fat,
+      calorieGoal: calories,
+      sodiumGoal: sodium,
+    },
   });
   console.log(data);
   // Send data to API here
